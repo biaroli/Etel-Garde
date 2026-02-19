@@ -34,19 +34,17 @@ The gates to EtelGarde are open. No installation is required.
 
 **Copyright © 2026 EtelGarde Team. All Rights Reserved.**
 
-This work is licensed under a **Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License (CC BY-NC-ND 4.0)**.
+**PROPRIETARY LICENSE - NO DISTRIBUTION PERMITTED**
 
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/ or see the `LICENSE` file in this repository.
+This project is released under a strict proprietary license. By accessing this content, you agree to the following terms:
 
-### Under this license, you are free to:
--   **Share** — copy and redistribute the material in any medium or format.
+1.  **Gameplay Only**: You are granted permission solely to **play** the game on your personal device.
+2.  **No Redistribution**: You may **NOT** copy, re-upload, share, or distribute this software or its assets on any platform.
+3.  **No Commercial Use**: Any form of monetization, ad revenue, or commercial exploitation is strictly forbidden.
+4.  **No Modification/Derivatives**: You may **NOT** modify, decompile, or create derivative works (including mods or fan games) based on this project.
+5.  **Asset Protection**: All art, audio, and code are the exclusive property of the creators.
 
-### Under the following terms:
--   **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made.
--   **NonCommercial** — You may **NOT** use the material for commercial purposes.
--   **NoDerivatives** — If you remix, transform, or build upon the material, you may **NOT** distribute the modified material.
-
-**Exceptions**: The underlying AI prompt engineering and system architecture are proprietary and are not covered by the CC license. Reverse engineering or extracting these components is strictly prohibited.
+**Any violation of these terms will result in immediate legal action.**
 
 ---
 
