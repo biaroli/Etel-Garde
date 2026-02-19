@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EtelGarde</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚔</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+SC:wght@300;400;500;700&family=LXGW+WenKai+TC&display=swap"
+        rel="stylesheet">
+  <script type="module" crossorigin src="./assets/index-DY4GvmeS.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CVlMYPk5.css">
+</head>
+
+<body>
+    <div id="app-root">
+        <!-- Map Container -->
+        <div id="epic-map-container">
+            <div class="map-content-wrapper">
+                <!-- Map Nodes and content will be injected or overlaid here -->
+                <div class="map-nodes-container" id="map-nodes-layer"></div>
+            </div>
+
+            <!-- HUD removed as requested -->
+            <div id="hud-overlay" style="display: none;"></div>
+        </div>
+
+        <!-- Galgame Container -->
+        <div id="galgame-container">
+            <div id="galgame-bg"></div>
+
+            <div id="galgame-sprites">
+                <img id="sprite-left" class="galgame-sprite" src="" alt="">
+                <img id="sprite-right" class="galgame-sprite" src="" alt="">
+            </div>
+
+            <div id="dialogue-box">
+                <div id="speaker-name"></div>
+                <div id="dialogue-text"></div>
+                <div id="dialogue-spinner" class="spinner-hidden"></div>
+            </div>
+
+            <div id="galgame-ui-controls">
+                <button id="galgame-prev-btn" class="galgame-ui-text-btn">◀ 回溯</button>
+                <button id="galgame-autoplay-btn" class="galgame-ui-text-btn">自动 ▶</button>
+                <button id="regenerate-btn" class="galgame-ui-text-btn">↻ 重生</button>
+                <!-- Settings button removed as requested -->
+                <button id="chat-btn" class="galgame-ui-text-btn">💬 交流</button>
+            </div>
+
+            <div id="galgame-history-log"></div>
+        </div>
+
+        <!-- Global Fullscreen Button (highest z-index, always visible) -->
+        <div id="fullscreen-btn" title="全屏切换">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path
+                    d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- 1. Astrolabe Main Menu -->
+    <div id="main-menu-modal" class="modal-overlay">
+        <div class="astrolabe-container">
+            <div class="celestial-glyphs"></div>
+            <div class="temporal-index"></div>
+            <div class="aetherial-core"></div>
+            <div class="menu-items-container">
+                <div class="main-menu-item" data-action="show-map">地图</div>
+                <div class="main-menu-item" data-modal="companions-fullscreen-modal">同伴</div>
+                <div class="main-menu-item" data-modal="inventory-modal">背包</div>
+                <div class="main-menu-item" data-modal="task-modal">事件</div>
+                <div class="main-menu-item" data-modal="save-manager-modal">存档</div>
+                <div class="main-menu-item" data-modal="settings-modal">设置</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Inventory Modal -->
+    <div id="inventory-modal" class="modal-overlay">
+        <div class="modal-scroll">
+            <div class="scroll-content-wrapper">
+                <div class="modal-header"><span>行囊</span><span class="modal-close">&times;</span></div>
+                <div class="modal-body">
+                    <div id="inventory-status-bar"
+                        style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed var(--ink-secondary); font-family: var(--font-ancient-body); color: var(--ink-secondary); display: flex; justify-content: space-between; align-items: center;">
+                        <span id="inv-time-display">未知时间</span>
+                        <span id="inv-wealth-display">金币: 0</span>
+                    </div>
+                    <div id="inventory-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Task Modal -->
+    <div id="task-modal" class="modal-overlay">
+        <div class="modal-scroll">
+            <div class="scroll-content-wrapper">
+                <div class="modal-header"><span>事件</span><span class="modal-close">&times;</span></div>
+                <div class="modal-body" id="task-body-wrapper"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Map Node Modal -->
+    <div id="map-node-modal" class="modal-overlay">
+        <div class="modal-scroll">
+            <div class="scroll-content-wrapper">
+                <div class="modal-header">
+                    <div id="map-node-header"><span id="map-node-title"></span><span id="map-node-seal"></span></div>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div id="map-node-body" class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Companions Modal -->
+    <div id="companions-fullscreen-modal">
+        <div class="modal-header" style="position: absolute; top: 10px; right: 10px; z-index: 200;">
+            <span class="modal-close" style="font-size: 30px; color: #fff;">×</span>
+        </div>
+        <div id="companions-grid"></div>
+    </div>
+
+    <div id="companion-bag-modal" class="modal-overlay">
+        <div class="modal-scroll">
+            <div class="scroll-content-wrapper">
+                <div class="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>系统设置</span>
+                <span class="modal-close">×</span>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <div class="settings-section-title">音频</div>
+                    <div class="settings-row">
+                        <label for="volume-slider">主音量</label>
+                        <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.01"
+                            value="0.5">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-section-title">阅读体验</div>
+                    <div class="settings-row" style="align-items: flex-start; margin-bottom: 15px;">
+                        <label style="margin-top: 5px;">字体风格</label>
+                        <div id="font-selector" class="font-selector">
+                            <button class="active" data-font="font-serif">宋体</button>
+                            <button data-font="font-handwritten">手写</button>
+                            <button data-font="font-sans">黑体</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-row" style="align-items: flex-start;">
+                        <label style="margin-top: 5px;">文字大小</label>
+                        <div id="fontsize-selector" class="font-selector">
+                            <button data-size="fs-small">小</button>
+                            <button class="active" data-size="fs-normal">中</button>
+                            <button data-size="fs-large">大</button>
+                            <button data-size="fs-xlarge">超大</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <div class="settings-section-title">天启</div>
+                    <div class="settings-row">
+                        <label>API URL</label>
+                        <input type="text" id="api-url" placeholder="" class="magical-input">
+                    </div>
+                    <div class="settings-row">
+                        <label>API Key</label>
+                        <input type="password" id="api-key" placeholder="sk-..." class="magical-input">
+                    </div>
+                    <div class="settings-row">
+                        <label>Model</label>
+                        <select id="model-select" class="magical-input">
+                            <option value="">Select a model...</option>
+                        </select>
+                    </div>
+
+                    <!-- Advanced Parameters -->
+                    <div class="settings-row" style="margin-top: 15px;">
+                        <label>Temperature</label>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
+                            <input type="range" id="ai-temp" class="volume-slider" min="0" max="2" step="0.1"
+                                value="1.0" style="flex-grow: 1;">
+                            <input type="number" id="ai-temp-val" class="magical-input" min="0" max="2" step="0.1"
+                                value="1.0" style="width: 70px; text-align: right; color: var(--gold-accent);">
+                        </div>
+                    </div>
+                    <div class="settings-row">
+                        <label>Top P</label>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
+                            <input type="range" id="ai-topp" class="volume-slider" min="0" max="1" step="0.05"
+                                value="1.0" style="flex-grow: 1;">
+                            <input type="number" id="ai-topp-val" class="magical-input" min="0" max="1" step="0.05"
+                                value="1.0" style="width: 70px; text-align: right; color: var(--gold-accent);">
+                        </div>
+                    </div>
+                    <div class="settings-row">
+                        <label>Top K</label>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
+                            <input type="number" id="ai-topk" class="magical-input" min="0" max="1000" value="0"
+                                style="width: 80px;">
+                            <span style="color: #666; font-size: 0.8em;">(0 = off)</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 10px;">
+                        <button id="check-conn-btn" class="magical-btn">检查连接</button>
+                        <button id="save-settings-btn" class="magical-btn primary">保存配置</button>
+                    </div>
+
+                    <!-- Embedding / RAG sub-section -->
+                    <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(180, 138, 56, 0.25);">
+                        <div
+                            style="font-size: 0.85em; color: var(--gold-accent); margin-bottom: 12px; letter-spacing: 1px;">
+                            向量记忆 (RAG)</div>
+                        <div class="settings-row">
+                            <label style="width: 90px;">Embed URL</label>
+                            <input type="text" id="embedding-api-url" placeholder="https://api.siliconflow.cn/v1"
+                                class="magical-input">
+                        </div>
+                        <div class="settings-row">
+                            <label style="width: 90px;">Embed Key</label>
+                            <input type="password" id="embedding-api-key" placeholder="sk-..." class="magical-input">
+                        </div>
+                        <div class="settings-row">
+                            <label style="width: 90px;">向量模型</label>
+                            <select id="embedding-model-select" class="magical-input">
+                                <option value="">选择向量模型...</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <label style="font-size: 0.85em; white-space: nowrap;">触发轮数</label>
+                                <input type="number" id="rag-trigger-rounds" class="magical-input" min="10" max="1000"
+                                    value="100" style="width: 65px;">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <label style="font-size: 0.85em; white-space: nowrap;">Top K</label>
+                                <input type="number" id="rag-top-k" class="magical-input" min="1" max="500" value="128"
+                                    style="width: 65px;">
+                            </div>
+                            <button id="check-emb-conn-btn" class="magical-btn"
+                                style="margin-left: auto; font-size: 0.8em; padding: 4px 10px;">检查连接</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Manager Modal -->
+    <div id="save-manager-modal" class="modal-overlay">
+        <div class="save-manager-panel">
+            <div class="save-manager-header">
+                <div class="save-manager-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                        <polyline points="17 21 17 13 7 13 7 21" />
+                        <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    存档管理
+                </div>
+                <button class="save-manager-close modal-close">✕</button>
+            </div>
+
+            <!-- Save Current Section -->
+            <div class="save-current-section">
+                <div class="save-current-row">
+                    <input type="text" id="save-name-input" class="save-name-input" placeholder="输入存档名称..."
+                        maxlength="30">
+                    <button id="save-current-btn" class="save-current-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
+                            <polyline points="17 21 17 13 7 13 7 21" />
+                        </svg>
+                        保存当前
+                    </button>
+                </div>
+                <div class="save-current-hint">
+                    <span id="save-current-info"></span>
+                </div>
+            </div>
+
+            <!-- Slots List -->
+            <div class="save-slots-container">
+                <div id="save-slots-list" class="save-slots-list"></div>
+                <div id="save-slots-empty" class="save-slots-empty">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                        opacity="0.3">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                    <span>暂无存档记录</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>输入行动</span>
+                <span class="modal-close">×</span>
+            </div>
+            <div class="modal-body">
+                <textarea id="chat-input" rows="5" style="width: 100%;" placeholder="描述你的行动或对话..."></textarea>
+                <button id="send-chat-btn" style="margin-top: 10px; width: 100%;">发送</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="character-creation-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <span>建立身份</span>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--ink-secondary); margin-bottom: 20px; font-size: 0.9em;">
+                    请输入你在埃特尔加德世界的身份信息。
+                </p>
+                <div class="settings-row">
+                    <label>姓名</label>
+                    <input type="text" id="char-name" class="magical-input" placeholder="旅行者">
+                </div>
+                <div class="settings-row">
+                    <label>年龄</label>
+                    <input type="text" id="char-age" class="magical-input" placeholder="20">
+                </div>
+                <div class="settings-row">
+                    <label>身高</label>
+                    <input type="text" id="char-height" class="magical-input" placeholder="175cm">
+                </div>
+                <div class="settings-row">
+                    <label>体重</label>
+                    <input type="text" id="char-weight" class="magical-input" placeholder="65kg">
+                </div>
+                <button id="confirm-character-btn" class="magical-btn primary"
+                    style="width: 100%; margin-top: 20px;">踏上旅程</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
