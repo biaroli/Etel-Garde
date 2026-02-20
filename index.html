@@ -257,13 +257,15 @@
                                     style="width: 65px;">
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
                             <label style="font-size: 0.85em; white-space: nowrap;">混合权重 α</label>
-                            <input type="range" id="hybrid-alpha" class="magical-input" min="0" max="1" step="0.1"
-                                value="0.7" style="flex: 1; accent-color: var(--accent-gold, #bfa76a);">
+                            <input type="range" id="hybrid-alpha" min="0" max="1" step="0.1" value="0.7"
+                                style="flex: 1; min-width: 180px; height: 6px; cursor: pointer; accent-color: #bfa76a;">
                             <span id="hybrid-alpha-val"
-                                style="font-size: 0.85em; min-width: 24px; text-align: center;">0.7</span>
-                            <span style="font-size: 0.7em; opacity: 0.6;">← 关键词 | 向量 →</span>
+                                style="font-size: 0.95em; min-width: 30px; text-align: center; font-weight: bold;">0.7</span>
+                            <span style="font-size: 0.75em; opacity: 0.5;">← 关键词 | 向量 →</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-top: 6px;">
                             <button id="check-emb-conn-btn" class="magical-btn"
                                 style="margin-left: auto; font-size: 0.8em; padding: 4px 10px;">检查连接</button>
                         </div>
