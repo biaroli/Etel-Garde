@@ -12,8 +12,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+SC:wght@300;400;500;700&family=LXGW+WenKai+TC&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-DwA5fyvF.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CVlMYPk5.css">
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine@2.12.0/tsparticles.engine.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-basic@2.12.0/tsparticles.basic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+  <script type="module" crossorigin src="./assets/index-BKq3kvKF.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-TBetgoXt.css">
 </head>
 
 <body>
@@ -33,9 +36,25 @@
         <div id="galgame-container">
             <div id="galgame-bg"></div>
 
+            <!-- VFX Core Layer (Under Sprites) -->
+            <canvas id="vfx-canvas"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3;"></canvas>
+
             <div id="galgame-sprites">
-                <img id="sprite-left" class="galgame-sprite" src="" alt="">
-                <img id="sprite-right" class="galgame-sprite" src="" alt="">
+                <img id="sprite-1" class="galgame-sprite empty-slot" src="" alt="">
+                <img id="sprite-2" class="galgame-sprite empty-slot" src="" alt="">
+                <img id="sprite-3" class="galgame-sprite empty-slot" src="" alt="">
+                <img id="sprite-4" class="galgame-sprite empty-slot" src="" alt="">
+                <img id="sprite-5" class="galgame-sprite empty-slot" src="" alt="">
+            </div>
+
+            <!-- VFX Overlay Layer (Above Sprites, for localized explosions) -->
+            <canvas id="vfx-overlay-canvas"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7;"></canvas>
+
+            <!-- Screen FX Layer (Flash, Vignette, Screen Tints) -->
+            <div id="screen-fx"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 8; opacity: 0;">
             </div>
 
             <div id="dialogue-box">
