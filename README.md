@@ -1,4 +1,4 @@
-# EtelGarde: The Age of AI-Generated Odyssey
+# EtelGarde
 
 > **"Experience a world that breathes, remembers, and evolves."**
 
