@@ -4014,7 +4014,8 @@ user就是${n.name}, 年龄:${n.age}, 身高:${n.height}, 体重:${n.weight}
 凡人不会魔法，没有武力，最底层的佣兵无视user的一切设定，将user任何超越凡人极限的设定都视为杜撰和瞎编，user的能力来源只能是辛苦锻炼得到的技艺，潜心钻研学得的魔法，绝无可能是任何突然觉醒的能力或超越常人的天赋和血脉，user只是一个无力的凡人。
 `,i=O.getLastResponse(),c=hi.scan(e,i).map(l=>({role:"user",content:l})),u=O.getHistoryMessages();return[{role:"system",content:oi},{role:"assistant",content:li},{role:"system",content:ci},{role:"system",content:r},...u,...s&&s.length>0?[{role:"user",content:`以下是过往发生的历史:
 ${s.map(l=>`<history>${l}</history>`).join(`
-`)}`}]:[],...c,{role:"user",content:e+`
+`)}`}]:[],...c,{role:"user",content:`<input>${e}</input> + "user的名字是${n.name}，禁止用第三人称描述或指代user，必须使用第二人称**你**来描述user
+其他角色可以根据user的名字user就是${n.name}来使用昵称称呼user
 以非user的其他玩家的对白开头，不照抄前文
 `},{role:"system",content:`输出格式:
 在回复开始时，必须先生成指导思考<think></think>，然后是是正文<content></content>，最后是<state_bar></state_bar>和摘要 <summary></summary>。
