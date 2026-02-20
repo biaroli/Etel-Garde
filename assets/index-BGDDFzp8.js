@@ -4022,9 +4022,10 @@ user就是${n.name}, 年龄:${n.age}, 身高:${n.height}, 体重:${n.weight}
 凡人不会魔法，没有武力，最底层的佣兵无视user的一切设定，将user任何超越凡人极限的设定都视为杜撰和瞎编，user的能力来源只能是辛苦锻炼得到的技艺，潜心钻研学得的魔法，绝无可能是任何突然觉醒的能力或超越常人的天赋和血脉，user只是一个无力的凡人。
 `,i=O.getLastResponse(),l=mi.scan(e,i).map(u=>({role:"user",content:u})),c=O.getHistoryMessages();return[{role:"system",content:ci},{role:"assistant",content:ui},{role:"system",content:di},{role:"system",content:r},...c,...s&&s.length>0?[{role:"user",content:`以下是过往发生的历史:
 ${s.map(u=>`<history>${u}</history>`).join(`
-`)}`}]:[],...l,{role:"user",content:e+`
-以非user的其他玩家的对白开头，不照抄前文
-`},{role:"system",content:`输出格式:
+`)}`}]:[],...l,{role:"user",content:`<input>${e}</input> + 
+user的名字就是${n.name}，以第二人称**你**来指代或在旁白中描述user
+角色根据user的名字${n.name}创造昵称称呼user，禁止称呼user为user，禁止以第三人称的方式描写user
+以非user的其他玩家的对白开头，不照抄前文`},{role:"system",content:`输出格式:
 在回复开始时，必须先生成指导思考<think></think>，然后是是正文<content></content>，最后是<state_bar></state_bar>和摘要 <summary></summary>。
 <content>
 每一行内容使用[说话人]对话内容
