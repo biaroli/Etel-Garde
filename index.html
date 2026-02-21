@@ -12,8 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+SC:wght@300;400;500;700&family=LXGW+WenKai+TC&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-Cs2V4R-q.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BnqJUYUB.css">
+  <script type="module" crossorigin src="./assets/index-CybAxI3n.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DooRnwHf.css">
 </head>
 
 <body>
@@ -32,11 +32,15 @@
         <!-- Galgame Container -->
         <div id="galgame-container">
             <div id="galgame-bg"></div>
+            <canvas id="vfx-canvas"></canvas>
 
             <div id="galgame-sprites">
                 <img id="sprite-left" class="galgame-sprite" src="" alt="">
+                <img id="sprite-center" class="galgame-sprite" src="" alt="">
                 <img id="sprite-right" class="galgame-sprite" src="" alt="">
             </div>
+
+            <div id="screen-fx"></div>
 
             <div id="dialogue-box">
                 <div id="speaker-name"></div>
@@ -373,6 +377,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3/tsparticles.bundle.min.js"></script>
 </body>
 
 </html>
